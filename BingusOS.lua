@@ -10,7 +10,7 @@ local function sendBingusOSMessage(message, emergency)
 end
 
 local function setRedstoneState(state)
-    redstone.setOutput("down", state)
+    redstone.setOutput("bottom", state)
 end
 
 local function hasPearl()
