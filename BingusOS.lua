@@ -20,12 +20,14 @@ end
 local commands = {
     home = {
         onTrigger = function(cmdArgs)
-            setRedstoneState(false)
-            sleep(1)
+            if not hasPearl() then return false end
             setRedstoneState(true)
+            sleep(2)
+            setRedstoneState(false)
             return true
         end,
         preResponse = function(_) return "Sending you home :3" end,
+        postResponse = function(res) return res and nil or "Never mind, no pearl :(" end,
     },
     ping = {
         onTrigger = function(cmdArgs)
@@ -64,7 +66,7 @@ local function tryRunCommand(commandArgs)
     return true
 end
 
-setRedstoneState(true)
+setRedstoneState(false)
 
 local function listenForCommands()
     repeat
