@@ -82,4 +82,5 @@ local function mainLoop()
     end
 end
 
+print("hi :3")
 mainLoop()
