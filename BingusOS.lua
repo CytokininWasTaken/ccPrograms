@@ -60,7 +60,7 @@ local function tryRunCommand(commandArgs)
     if not cmd then return false end
     processResponse(cmd.preResponse)
     local res = cmd.onTrigger(commandArgs)
-    processResponse(cmd.postResponse)
+    processResponse(cmd.postResponse, res)
     return true
 end
 
