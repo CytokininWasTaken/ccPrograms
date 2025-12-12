@@ -27,7 +27,7 @@ local commands = {
             return true
         end,
         preResponse = function(_) return "Sending you home :3" end,
-        postResponse = function(res) return res and nil or "Never mind, no pearl :(" end,
+        postResponse = function(res) return (not res) and "Never mind, no pearl :(" or nil end,
     },
     ping = {
         onTrigger = function(cmdArgs)
