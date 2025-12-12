@@ -20,27 +20,31 @@ end
 local commands = {
     home = {
         onTrigger = function(cmdArgs)
-            if not hasPearl() then return false end
-            setRedstoneState(true)
-            sleep(2)
-            setRedstoneState(false)
+            local pearl = hasPearl()
+            if pearl then
+                sendBingusOSMessage("Sending you home :3")
+                setRedstoneState(true)
+                sleep(2)
+                setRedstoneState(false)
+            else
+                sendBingusOSMessage("No pearl in stasis chamber.")
+                return false
+            end
             return true
         end,
-        preResponse = function(_) return "Sending you home :3" end,
-        postResponse = function(res) return (not res) and "Never mind, no pearl :(" or nil end,
     },
     ping = {
         onTrigger = function(cmdArgs)
-            print("ponged")
+            sendBingusOSMessage("Pong!")
             return true
         end,
-        preResponse = function(_) return "Pong!" end,
     },
     checkPearl = {
         onTrigger = function(cmdArgs)
-            return hasPearl()
+            local pearl = hasPearl()
+            sendBingusOSMessage(pearl and "Pearl is present" or "Pearl is not present")
+            return pearl
         end,
-        postResponse = function(pearl) return pearl and "Pearl is present" or "Pearl is not present" end,
     }
 }
 
@@ -50,19 +54,10 @@ local function splitString(str)
     return words
 end
 
-local function processResponse(responseFunc, responseArgs)
-    if not responseFunc then return end
-    local response = responseFunc(responseArgs)
-    if not response then return end
-    sendBingusOSMessage(response)
-end
-
 local function tryRunCommand(commandArgs)
     local cmd = commands[commandArgs[1]]
     if not cmd then return false end
-    processResponse(cmd.preResponse)
     local res = cmd.onTrigger(commandArgs)
-    processResponse(cmd.postResponse, res)
     return true
 end
 
