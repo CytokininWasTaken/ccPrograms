@@ -1,10 +1,3 @@
---local emptyStorageSlot = settings.get("emptyStorageSlot")
---local filledStorageSlot = settings.get("filledStorageSlot")
-
---local emptyStorage = peripheral.wrap("minecraft:barrel_" .. emptyStorageSlot)
---local filledStorage = peripheral.wrap("minecraft:barrel_" .. filledStorageSlot)
-
-local tankMode = settings.get("tankMode")
 local tankMinimum = settings.get("tankMinimum") or 0
 local sleepTime = settings.get("sleepTime") or 1
 
